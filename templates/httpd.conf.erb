@@ -82,7 +82,9 @@ UseCanonicalName <%= @use_canonical_name %>
 #LoadModule fake_module libexec/apache22/mod_fake.so
 <% end -%>
 
+<% if !((scope['::operatingsystem'] =~ /^[Aa]mazon$/) and (scope['::operatingsystemmajrelease'] == '2')) -%>
 Include "<%= @mod_load_dir %>/*.load"
+<% end -%>
 <% if @mod_load_dir != @confd_dir and @mod_load_dir != @vhost_load_dir -%>
 Include "<%= @mod_load_dir %>/*.conf"
 <% end -%>
